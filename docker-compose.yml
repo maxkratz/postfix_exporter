@@ -1,0 +1,14 @@
+version: '3.2'
+
+services:
+  postfix-exporter:
+    # use local Dockerfile to build image
+    build: .
+    # mount spool and logfiles as read only to container
+    volumes:
+      - /var/spool/postfix:/var/spool/postfix:ro
+      - /var/log/mail.log:/var/log/maillog:ro
+    # map ports to host 
+    ports:
+      - 9154:9154
+    restart: unless-stopped
